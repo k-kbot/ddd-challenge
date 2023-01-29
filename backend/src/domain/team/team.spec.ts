@@ -17,8 +17,8 @@ describe('Team', () => {
         Team.rebuild({
           id: TeamId.rebuild('id'),
           name: TeamName.rebuild('🙅'),
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          createdAt: new Date('2000/01/01 12:34:56'),
+          updatedAt: new Date('2020/12/31 12:34:56'),
         }),
       ).toBeInstanceOf(Team);
     });
