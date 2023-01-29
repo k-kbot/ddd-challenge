@@ -1,6 +1,6 @@
 export class TeamName {
   private static readonly MAX_LENGTH = 3;
-  private static readonly REGEX = /\d/;
+  private static readonly REGEX = /^\d+$/;
 
   private constructor(private value: string) {}
 
