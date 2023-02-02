@@ -8,10 +8,12 @@ interface TeamProps {
   updatedAt: Date;
 }
 
+type TeamBuildProps = Omit<TeamProps, 'createdAt' | 'updatedAt'>;
+
 export class Team {
   private constructor(private props: TeamProps) {}
 
-  static build(props): Team {
+  static build(props: TeamBuildProps): Team {
     return new Team({
       ...props,
       createdAt: new Date(),
@@ -19,9 +21,16 @@ export class Team {
     });
   }
 
-  static rebuild(props): Team {
+  static rebuild(props: TeamProps): Team {
     return new Team({
       ...props,
     });
+  }
+
+  getAllProperties() {
+    return {
+      id: this.props.id.value,
+      name: this.props.name.value,
+    };
   }
 }
