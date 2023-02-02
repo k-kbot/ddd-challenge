@@ -12,7 +12,7 @@ describe('TeamRepository', () => {
   });
 
   describe('findAll', () => {
-    it('正常系', async () => {
+    it('正常系 全てのチームを取得できること', async () => {
       // Arrange
       await prisma.team.createMany({
         data: [
@@ -53,7 +53,7 @@ describe('TeamRepository', () => {
   });
 
   describe('update', () => {
-    it('正常系', async () => {
+    it('正常系 チームの名前を更新できること', async () => {
       // Arrange
       const id = '1';
 
