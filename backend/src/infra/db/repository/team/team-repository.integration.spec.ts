@@ -3,6 +3,7 @@ import { Team } from '../../../../domain/team/team';
 import { TeamId } from '../../../../domain/team/team-id';
 import { TeamName } from '../../../../domain/team/team-name';
 import { prisma } from '../../../../../testUtils/prisma';
+import { TeamDto } from '../../../../domain/repository-interface/team-repository';
 
 describe('TeamRepository', () => {
   const teamRepository = new TeamRepository(prisma);
@@ -36,15 +37,15 @@ describe('TeamRepository', () => {
 
       // Assert
       expect(actual).toStrictEqual([
-        Team.rebuild({
-          id: TeamId.rebuild('1'),
-          name: TeamName.rebuild('001'),
+        new TeamDto({
+          id: '1',
+          name: '001',
           createdAt: new Date('2023-01-01T09:00:00Z'),
           updatedAt: new Date('2023-01-01T09:00:00Z'),
         }),
-        Team.rebuild({
-          id: TeamId.rebuild('2'),
-          name: TeamName.rebuild('002'),
+        new TeamDto({
+          id: '2',
+          name: '002',
           createdAt: new Date('2023-02-01T09:00:00Z'),
           updatedAt: new Date('2023-02-01T09:00:00Z'),
         }),
