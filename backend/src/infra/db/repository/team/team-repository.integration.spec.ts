@@ -53,6 +53,53 @@ describe('TeamRepository', () => {
     });
   });
 
+  describe('findById', () => {
+    it('正常系 idでチームを取得できること', async () => {
+      // Arrange
+      const id = '1';
+
+      await prisma.team.create({
+        data: {
+          id,
+          name: '001',
+          createdAt: '2023-01-01T09:00:00Z',
+          updatedAt: '2023-01-01T09:00:00Z',
+        },
+      });
+
+      // Act
+      const actual = await teamRepository.findById(id);
+
+      // Assert
+      expect(actual).toStrictEqual(
+        new TeamDto({
+          id,
+          name: '001',
+          createdAt: new Date('2023-01-01T09:00:00Z'),
+          updatedAt: new Date('2023-01-01T09:00:00Z'),
+        }),
+      );
+    });
+
+    it('正常系 idが存在しない場合はundefinedを返すこと', async () => {
+      // Arrange
+      await prisma.team.create({
+        data: {
+          id: '1',
+          name: '001',
+          createdAt: '2023-01-01T09:00:00Z',
+          updatedAt: '2023-01-01T09:00:00Z',
+        },
+      });
+
+      // Act
+      const actual = await teamRepository.findById('2');
+
+      // Assert
+      expect(actual).toBeUndefined();
+    });
+  });
+
   describe('update', () => {
     it('正常系 チームの名前を更新できること', async () => {
       // Arrange
