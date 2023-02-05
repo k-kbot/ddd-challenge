@@ -23,5 +23,6 @@ export class TeamDto {
 export interface ITeamRepository {
   findAll(): Promise<TeamDto[]>;
   findById(id: string): Promise<TeamDto | undefined>;
+  findByName(name: string): Promise<TeamDto | undefined>;
   update(team: Team): Promise<boolean>;
 }

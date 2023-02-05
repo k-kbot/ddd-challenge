@@ -38,6 +38,23 @@ export class TeamRepository implements ITeamRepository {
     });
   }
 
+  async findByName(name: string): Promise<TeamDto | undefined> {
+    const team = await this.prismaClient.team.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (!team) return undefined;
+
+    return new TeamDto({
+      id: team.id,
+      name: team.name,
+      createdAt: team.createdAt,
+      updatedAt: team.updatedAt,
+    });
+  }
+
   async update(team: Team): Promise<boolean> {
     const { id, name } = team.getAllProperties();
     await this.prismaClient.team.update({
