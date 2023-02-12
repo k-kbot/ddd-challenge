@@ -1,9 +1,11 @@
 import { PairId } from './pair-id';
 import { PairName } from './pair-name';
+import { Participant } from '../participant/participant';
 
 interface PairProps {
   id: PairId;
   name: PairName;
+  participants: Participant[];
   createdAt: Date;
   updatedAt: Date;
 }
