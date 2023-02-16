@@ -31,6 +31,58 @@ describe('Pair', () => {
         }),
       ).toBeInstanceOf(Pair);
     });
+
+    it('異常系 参加者が2名未満ではインスタンス生成が行えないこと', () => {
+      expect(() =>
+        Pair.build({
+          id: PairId.build(),
+          name: PairName.build('2'),
+          participants: [
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('山田太郎'),
+              email: ParticipantEmail.build('taro@example.com'),
+              status: ParticipantStatus.build('active'),
+            }),
+          ],
+        }),
+      ).toThrow('ペアに所属できる参加者は2~3名です');
+    });
+
+    it('異常系 参加者が4名以上ではインスタンス生成が行えないこと', () => {
+      expect(() =>
+        Pair.build({
+          id: PairId.build(),
+          name: PairName.build('2'),
+          participants: [
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('山田太郎'),
+              email: ParticipantEmail.build('taro@example.com'),
+              status: ParticipantStatus.build('active'),
+            }),
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('鈴木二郎'),
+              email: ParticipantEmail.build('jiro@example.com'),
+              status: ParticipantStatus.build('active'),
+            }),
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('佐藤三郎'),
+              email: ParticipantEmail.build('saburo@example.com'),
+              status: ParticipantStatus.build('active'),
+            }),
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('高橋四郎'),
+              email: ParticipantEmail.build('shiro@example.com'),
+              status: ParticipantStatus.build('active'),
+            }),
+          ],
+        }),
+      ).toThrow('ペアに所属できる参加者は2~3名です');
+    });
   });
 
   describe('rebuild', () => {
