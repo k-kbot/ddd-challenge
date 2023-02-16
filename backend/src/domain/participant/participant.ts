@@ -35,8 +35,8 @@ export class Participant {
     return {
       id: this.props.id.value,
       name: this.props.name.value,
-      email: this.props.name.value,
-      status: this.props.name.value,
+      email: this.props.email.value,
+      status: this.props.status.value,
     };
   }
 }

@@ -25,7 +25,7 @@ describe('Pair', () => {
               id: ParticipantId.build(),
               name: ParticipantName.build('鈴木二郎'),
               email: ParticipantEmail.build('jiro@example.com'),
-              status: ParticipantStatus.build('inactive'),
+              status: ParticipantStatus.build('active'),
             }),
           ],
         }),
@@ -82,6 +82,29 @@ describe('Pair', () => {
           ],
         }),
       ).toThrow('ペアに所属できる参加者は2~3名です');
+    });
+
+    it('異常系 ステータスが在籍中ではない参加者がいるとインスタンス生成が行えないこと', () => {
+      expect(() =>
+        Pair.build({
+          id: PairId.build(),
+          name: PairName.build('2'),
+          participants: [
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('山田太郎'),
+              email: ParticipantEmail.build('taro@example.com'),
+              status: ParticipantStatus.build('active'),
+            }),
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('鈴木二郎'),
+              email: ParticipantEmail.build('jiro@example.com'),
+              status: ParticipantStatus.build('inactive'),
+            }),
+          ],
+        }),
+      ).toThrow('ステータスが在籍中ではない参加者はペアに所属できません');
     });
   });
 

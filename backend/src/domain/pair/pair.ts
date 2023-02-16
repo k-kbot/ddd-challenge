@@ -28,6 +28,15 @@ export class Pair {
       );
     }
 
+    for (const participant of props.participants) {
+      const { status } = participant.getAllProperties();
+      if (status !== 'active') {
+        throw new Error(
+          'ステータスが在籍中ではない参加者はペアに所属できません',
+        );
+      }
+    }
+
     return new Pair({
       ...props,
       createdAt: new Date(),
