@@ -6,6 +6,7 @@ import { ParticipantId } from '../participant/participant-id';
 import { ParticipantName } from '../participant/participant-name';
 import { ParticipantEmail } from '../participant/participant-email';
 import { ParticipantStatus } from '../participant/participant-status';
+import { TestParticipantFactory } from '../participant/test-participant-factory';
 
 describe('Pair', () => {
   describe('build', () => {
@@ -115,22 +116,8 @@ describe('Pair', () => {
           id: PairId.rebuild('id'),
           name: PairName.rebuild('🙅'),
           participants: [
-            Participant.rebuild({
-              id: ParticipantId.rebuild('id'),
-              name: ParticipantName.rebuild('山田太郎'),
-              email: ParticipantEmail.rebuild('taro@example.com'),
-              status: ParticipantStatus.rebuild('active'),
-              createdAt: new Date('2000/01/01 12:34:56'),
-              updatedAt: new Date('2020/12/31 12:34:56'),
-            }),
-            Participant.rebuild({
-              id: ParticipantId.rebuild('id'),
-              name: ParticipantName.rebuild('鈴木二郎'),
-              email: ParticipantEmail.rebuild('jiro@example.com'),
-              status: ParticipantStatus.rebuild('inactive'),
-              createdAt: new Date('2000/01/01 12:34:56'),
-              updatedAt: new Date('2020/12/31 12:34:56'),
-            }),
+            TestParticipantFactory.build({}),
+            TestParticipantFactory.build({}),
           ],
           createdAt: new Date('2000/01/01 12:34:56'),
           updatedAt: new Date('2020/12/31 12:34:56'),
