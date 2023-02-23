@@ -8,7 +8,7 @@ import { TeamDto } from '../../../../domain/repository-interface/team-repository
 describe('TeamRepository', () => {
   const teamRepository = new TeamRepository(prisma);
 
-  beforeEach(async () => {
+  afterEach(async () => {
     await prisma.team.deleteMany({});
   });
 

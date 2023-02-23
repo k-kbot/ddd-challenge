@@ -19,6 +19,7 @@ export class ParticipantRepository implements IParticipantRepository {
           status: participant.status,
           createdAt: participant.createdAt,
           updatedAt: participant.updatedAt,
+          teamId: participant.teamId,
           pairId: participant.pairId,
         }),
     );

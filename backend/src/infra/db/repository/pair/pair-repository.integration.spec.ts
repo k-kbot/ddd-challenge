@@ -5,17 +5,35 @@ import { PairDto } from '../../../../domain/repository-interface/pair-repository
 describe('PairRepository', () => {
   const pairRepository = new PairRepository(prisma);
 
-  beforeEach(async () => {
+  afterEach(async () => {
     // https://www.prisma.io/docs/concepts/components/prisma-client/crud#cascading-deletes-deleting-related-records
     const deleteParticipants = prisma.participant.deleteMany({});
     const deletePairs = prisma.pair.deleteMany({});
+    const deleteTeams = prisma.team.deleteMany({});
 
-    await prisma.$transaction([deleteParticipants, deletePairs]);
+    await prisma.$transaction([deleteParticipants, deletePairs, deleteTeams]);
   });
 
   describe('findAll', () => {
     it('正常系 全てのペアを取得できること', async () => {
       // Arrange
+      await prisma.team.createMany({
+        data: [
+          {
+            id: '1',
+            name: '001',
+            createdAt: '2023-01-01T09:00:00Z',
+            updatedAt: '2023-01-01T09:00:00Z',
+          },
+          {
+            id: '2',
+            name: '002',
+            createdAt: '2023-02-01T09:00:00Z',
+            updatedAt: '2023-02-01T09:00:00Z',
+          },
+        ],
+      });
+
       await prisma.pair.create({
         include: {
           participants: true,
@@ -32,6 +50,7 @@ describe('PairRepository', () => {
                 status: 1,
                 createdAt: '2023-01-01T09:00:00Z',
                 updatedAt: '2023-01-01T09:00:00Z',
+                teamId: '1',
               },
               {
                 id: '2',
@@ -40,11 +59,13 @@ describe('PairRepository', () => {
                 status: 2,
                 createdAt: '2023-01-01T09:00:00Z',
                 updatedAt: '2023-01-01T09:00:00Z',
+                teamId: '1',
               },
             ],
           },
           createdAt: '2023-01-01T09:00:00Z',
           updatedAt: '2023-01-01T09:00:00Z',
+          teamId: '1',
         },
       });
 
@@ -64,6 +85,7 @@ describe('PairRepository', () => {
                 status: 1,
                 createdAt: '2023-01-01T09:00:00Z',
                 updatedAt: '2023-01-01T09:00:00Z',
+                teamId: '2',
               },
               {
                 id: '4',
@@ -72,11 +94,13 @@ describe('PairRepository', () => {
                 status: 2,
                 createdAt: '2023-01-01T09:00:00Z',
                 updatedAt: '2023-01-01T09:00:00Z',
+                teamId: '2',
               },
             ],
           },
           createdAt: '2023-01-01T09:00:00Z',
           updatedAt: '2023-01-01T09:00:00Z',
+          teamId: '2',
         },
       });
 
@@ -96,6 +120,7 @@ describe('PairRepository', () => {
               status: 1,
               createdAt: new Date('2023-01-01T09:00:00Z'),
               updatedAt: new Date('2023-01-01T09:00:00Z'),
+              teamId: '1',
               pairId: '1',
             },
             {
@@ -105,11 +130,13 @@ describe('PairRepository', () => {
               status: 2,
               createdAt: new Date('2023-01-01T09:00:00Z'),
               updatedAt: new Date('2023-01-01T09:00:00Z'),
+              teamId: '1',
               pairId: '1',
             },
           ],
           createdAt: new Date('2023-01-01T09:00:00Z'),
           updatedAt: new Date('2023-01-01T09:00:00Z'),
+          teamId: '1',
         }),
         new PairDto({
           id: '2',
@@ -122,6 +149,7 @@ describe('PairRepository', () => {
               status: 1,
               createdAt: new Date('2023-01-01T09:00:00Z'),
               updatedAt: new Date('2023-01-01T09:00:00Z'),
+              teamId: '2',
               pairId: '2',
             },
             {
@@ -131,11 +159,13 @@ describe('PairRepository', () => {
               status: 2,
               createdAt: new Date('2023-01-01T09:00:00Z'),
               updatedAt: new Date('2023-01-01T09:00:00Z'),
+              teamId: '2',
               pairId: '2',
             },
           ],
           createdAt: new Date('2023-01-01T09:00:00Z'),
           updatedAt: new Date('2023-01-01T09:00:00Z'),
+          teamId: '2',
         }),
       ]);
     });
