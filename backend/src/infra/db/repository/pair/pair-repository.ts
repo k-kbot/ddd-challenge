@@ -22,6 +22,7 @@ export class PairRepository implements IPairRepository {
           participants: pair.participants,
           createdAt: pair.createdAt,
           updatedAt: pair.updatedAt,
+          teamId: pair.teamId,
         }),
     );
   }

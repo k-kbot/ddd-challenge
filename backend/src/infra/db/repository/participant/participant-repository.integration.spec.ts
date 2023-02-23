@@ -5,13 +5,37 @@ import { ParticipantDto } from '../../../../domain/repository-interface/particip
 describe('ParticipantRepository', () => {
   const participantRepository = new ParticipantRepository(prisma);
 
-  beforeEach(async () => {
-    await prisma.participant.deleteMany({});
+  afterEach(async () => {
+    // https://www.prisma.io/docs/concepts/components/prisma-client/crud#cascading-deletes-deleting-related-records
+    const deleteParticipants = prisma.participant.deleteMany({});
+    const deletePairs = prisma.pair.deleteMany({});
+    const deleteTeams = prisma.team.deleteMany({});
+
+    await prisma.$transaction([deleteParticipants, deletePairs, deleteTeams]);
   });
 
   describe('findAll', () => {
     it('正常系 全ての参加者を取得できること', async () => {
       // Arrange
+      await prisma.team.create({
+        data: {
+          id: '1',
+          name: '001',
+          createdAt: '2023-01-01T09:00:00Z',
+          updatedAt: '2023-01-01T09:00:00Z',
+        },
+      });
+
+      await prisma.pair.create({
+        data: {
+          id: '1',
+          name: '1',
+          createdAt: '2023-01-01T09:00:00Z',
+          updatedAt: '2023-01-01T09:00:00Z',
+          teamId: '1',
+        },
+      });
+
       await prisma.participant.createMany({
         data: [
           {
@@ -21,6 +45,7 @@ describe('ParticipantRepository', () => {
             status: 1,
             createdAt: '2023-01-01T09:00:00Z',
             updatedAt: '2023-01-01T09:00:00Z',
+            teamId: '1',
             pairId: '1',
           },
           {
@@ -30,6 +55,7 @@ describe('ParticipantRepository', () => {
             status: 2,
             createdAt: '2023-02-01T09:00:00Z',
             updatedAt: '2023-02-01T09:00:00Z',
+            teamId: '1',
             pairId: '1',
           },
         ],
@@ -47,6 +73,7 @@ describe('ParticipantRepository', () => {
           status: 1,
           createdAt: new Date('2023-01-01T09:00:00Z'),
           updatedAt: new Date('2023-01-01T09:00:00Z'),
+          teamId: '1',
           pairId: '1',
         }),
         new ParticipantDto({
@@ -56,6 +83,7 @@ describe('ParticipantRepository', () => {
           status: 2,
           createdAt: new Date('2023-02-01T09:00:00Z'),
           updatedAt: new Date('2023-02-01T09:00:00Z'),
+          teamId: '1',
           pairId: '1',
         }),
       ]);
