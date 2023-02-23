@@ -32,6 +32,7 @@ describe('Pair', () => {
               teamId: TeamId.rebuild('001'),
             }),
           ],
+          teamId: TeamId.build(),
         }),
       ).toBeInstanceOf(Pair);
     });
@@ -50,6 +51,7 @@ describe('Pair', () => {
               teamId: TeamId.rebuild('001'),
             }),
           ],
+          teamId: TeamId.build(),
         }),
       ).toThrow('ペアに所属できる参加者は2~3名です');
     });
@@ -89,6 +91,7 @@ describe('Pair', () => {
               teamId: TeamId.rebuild('001'),
             }),
           ],
+          teamId: TeamId.build(),
         }),
       ).toThrow('ペアに所属できる参加者は2~3名です');
     });
@@ -114,6 +117,7 @@ describe('Pair', () => {
               teamId: TeamId.rebuild('001'),
             }),
           ],
+          teamId: TeamId.build(),
         }),
       ).toThrow('ステータスが在籍中ではない参加者はペアに所属できません');
     });
@@ -139,6 +143,7 @@ describe('Pair', () => {
               teamId: TeamId.rebuild('002'),
             }),
           ],
+          teamId: TeamId.build(),
         }),
       ).toThrow(
         'ペアに所属する参加者は、同じチームに所属している必要があります',
@@ -158,6 +163,7 @@ describe('Pair', () => {
           ],
           createdAt: new Date('2000/01/01 12:34:56'),
           updatedAt: new Date('2020/12/31 12:34:56'),
+          teamId: TeamId.rebuild('teamId'),
         }),
       ).toBeInstanceOf(Pair);
     });
