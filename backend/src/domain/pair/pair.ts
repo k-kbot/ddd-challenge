@@ -37,6 +37,15 @@ export class Pair {
       }
     }
 
+    const teamIds = props.participants.map((participant) => {
+      return participant.getAllProperties().teamId;
+    });
+    if (!teamIds.every((teamId) => teamId === teamIds[0])) {
+      throw new Error(
+        'ペアに所属する参加者は、同じチームに所属している必要があります',
+      );
+    }
+
     return new Pair({
       ...props,
       createdAt: new Date(),
