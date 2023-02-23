@@ -18,6 +18,30 @@ describe('Participant', () => {
         }),
       ).toBeInstanceOf(Participant);
     });
+
+    it('異常系 ステータスが在籍中でチームの所属していなければインスタンス生成が行えないこと', () => {
+      expect(() =>
+        Participant.build({
+          id: ParticipantId.build(),
+          name: ParticipantName.build('山田太郎'),
+          email: ParticipantEmail.build('taro@example.com'),
+          status: ParticipantStatus.build('active'),
+          teamId: undefined,
+        }),
+      ).toThrow('ステータスが在籍中であればチームに所属している必要があります');
+    });
+
+    it('異常系 ステータスが在籍中以外でチームの所属していればインスタンス生成が行えないこと', () => {
+      expect(() =>
+        Participant.build({
+          id: ParticipantId.build(),
+          name: ParticipantName.build('山田太郎'),
+          email: ParticipantEmail.build('taro@example.com'),
+          status: ParticipantStatus.build('inactive'),
+          teamId: TeamId.build(),
+        }),
+      ).toThrow('ステータスが在籍中でなければチームに所属できません');
+    });
   });
 
   describe('rebuild', () => {
