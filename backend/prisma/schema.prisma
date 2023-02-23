@@ -24,7 +24,7 @@ model Pair {
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
   participants Participant[]
-  teamId       String        @default("1") @map("team_id")
+  teamId       String        @map("team_id")
   Team         Team          @relation(fields: [teamId], references: [id])
 
   @@map("pairs")
@@ -37,7 +37,7 @@ model Participant {
   status    Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  teamId    String   @default("1") @map("team_id")
+  teamId    String   @map("team_id")
   Team      Team     @relation(fields: [teamId], references: [id])
   pairId    String   @map("pair_id")
   Pair      Pair     @relation(fields: [pairId], references: [id])
