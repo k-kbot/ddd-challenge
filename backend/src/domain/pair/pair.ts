@@ -1,6 +1,7 @@
 import { PairId } from './pair-id';
 import { PairName } from './pair-name';
 import { Participant } from '../participant/participant';
+import { TeamId } from '../team/team-id';
 
 interface PairProps {
   id: PairId;
@@ -8,6 +9,7 @@ interface PairProps {
   participants: Participant[];
   createdAt: Date;
   updatedAt: Date;
+  teamId: TeamId;
 }
 
 type PairBuildProps = Omit<PairProps, 'createdAt' | 'updatedAt'>;
@@ -63,6 +65,9 @@ export class Pair {
     return {
       id: this.props.id.value,
       name: this.props.name.value,
+      createdAt: this.props.createdAt,
+      updatedAt: this.props.updatedAt,
+      teamId: this.props.teamId.value,
     };
   }
 }
