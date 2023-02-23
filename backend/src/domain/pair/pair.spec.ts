@@ -7,6 +7,7 @@ import { ParticipantName } from '../participant/participant-name';
 import { ParticipantEmail } from '../participant/participant-email';
 import { ParticipantStatus } from '../participant/participant-status';
 import { TestParticipantFactory } from '../participant/test-participant-factory';
+import { TeamId } from '../team/team-id';
 
 describe('Pair', () => {
   describe('build', () => {
@@ -21,12 +22,14 @@ describe('Pair', () => {
               name: ParticipantName.build('山田太郎'),
               email: ParticipantEmail.build('taro@example.com'),
               status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
             }),
             Participant.build({
               id: ParticipantId.build(),
               name: ParticipantName.build('鈴木二郎'),
               email: ParticipantEmail.build('jiro@example.com'),
               status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
             }),
           ],
         }),
@@ -44,6 +47,7 @@ describe('Pair', () => {
               name: ParticipantName.build('山田太郎'),
               email: ParticipantEmail.build('taro@example.com'),
               status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
             }),
           ],
         }),
@@ -61,24 +65,28 @@ describe('Pair', () => {
               name: ParticipantName.build('山田太郎'),
               email: ParticipantEmail.build('taro@example.com'),
               status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
             }),
             Participant.build({
               id: ParticipantId.build(),
               name: ParticipantName.build('鈴木二郎'),
               email: ParticipantEmail.build('jiro@example.com'),
               status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
             }),
             Participant.build({
               id: ParticipantId.build(),
               name: ParticipantName.build('佐藤三郎'),
               email: ParticipantEmail.build('saburo@example.com'),
               status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
             }),
             Participant.build({
               id: ParticipantId.build(),
               name: ParticipantName.build('高橋四郎'),
               email: ParticipantEmail.build('shiro@example.com'),
               status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
             }),
           ],
         }),
@@ -96,16 +104,45 @@ describe('Pair', () => {
               name: ParticipantName.build('山田太郎'),
               email: ParticipantEmail.build('taro@example.com'),
               status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
             }),
             Participant.build({
               id: ParticipantId.build(),
               name: ParticipantName.build('鈴木二郎'),
               email: ParticipantEmail.build('jiro@example.com'),
               status: ParticipantStatus.build('inactive'),
+              teamId: TeamId.rebuild('001'),
             }),
           ],
         }),
       ).toThrow('ステータスが在籍中ではない参加者はペアに所属できません');
+    });
+
+    it('異常系 参加者が異なるチームに所属しているいるとインスタンス生成が行えないこと', () => {
+      expect(() =>
+        Pair.build({
+          id: PairId.build(),
+          name: PairName.build('2'),
+          participants: [
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('山田太郎'),
+              email: ParticipantEmail.build('taro@example.com'),
+              status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('001'),
+            }),
+            Participant.build({
+              id: ParticipantId.build(),
+              name: ParticipantName.build('鈴木二郎'),
+              email: ParticipantEmail.build('jiro@example.com'),
+              status: ParticipantStatus.build('active'),
+              teamId: TeamId.rebuild('002'),
+            }),
+          ],
+        }),
+      ).toThrow(
+        'ペアに所属する参加者は、同じチームに所属している必要があります',
+      );
     });
   });
 

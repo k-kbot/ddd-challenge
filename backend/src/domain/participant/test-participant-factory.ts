@@ -3,6 +3,7 @@ import { ParticipantId } from './participant-id';
 import { ParticipantName } from './participant-name';
 import { ParticipantEmail } from './participant-email';
 import { ParticipantStatus } from './participant-status';
+import { TeamId } from '../team/team-id';
 
 export class TestParticipantFactory {
   static build({
@@ -12,6 +13,7 @@ export class TestParticipantFactory {
     status = 'active',
     createdAt = new Date(),
     updatedAt = new Date(),
+    teamId = '1',
   }): Participant {
     return Participant.rebuild({
       id: ParticipantId.rebuild(id),
@@ -20,6 +22,7 @@ export class TestParticipantFactory {
       status: ParticipantStatus.rebuild(status),
       createdAt,
       updatedAt,
+      teamId: TeamId.rebuild(teamId),
     });
   }
 }

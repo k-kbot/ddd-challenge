@@ -2,6 +2,7 @@ import { ParticipantId } from './participant-id';
 import { ParticipantName } from './participant-name';
 import { ParticipantEmail } from './participant-email';
 import { ParticipantStatus } from './participant-status';
+import { TeamId } from '../team/team-id';
 
 interface ParticipantProps {
   id: ParticipantId;
@@ -10,6 +11,7 @@ interface ParticipantProps {
   status: ParticipantStatus;
   createdAt: Date;
   updatedAt: Date;
+  teamId: TeamId;
 }
 
 type ParticipantBuildProps = Omit<ParticipantProps, 'createdAt' | 'updatedAt'>;
@@ -37,6 +39,9 @@ export class Participant {
       name: this.props.name.value,
       email: this.props.email.value,
       status: this.props.status.value,
+      createdAt: this.props.createdAt,
+      updatedAt: this.props.updatedAt,
+      teamId: this.props.teamId.value,
     };
   }
 }
