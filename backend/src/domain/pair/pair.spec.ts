@@ -114,7 +114,7 @@ describe('Pair', () => {
               name: ParticipantName.build('鈴木二郎'),
               email: ParticipantEmail.build('jiro@example.com'),
               status: ParticipantStatus.build('inactive'),
-              teamId: TeamId.rebuild('001'),
+              teamId: undefined,
             }),
           ],
           teamId: TeamId.build(),

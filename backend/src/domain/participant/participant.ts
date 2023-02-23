@@ -11,7 +11,7 @@ interface ParticipantProps {
   status: ParticipantStatus;
   createdAt: Date;
   updatedAt: Date;
-  teamId: TeamId;
+  teamId?: TeamId;
 }
 
 type ParticipantBuildProps = Omit<ParticipantProps, 'createdAt' | 'updatedAt'>;
@@ -20,6 +20,16 @@ export class Participant {
   private constructor(private props: ParticipantProps) {}
 
   static build(props: ParticipantBuildProps): Participant {
+    if (props.status.value === 'active' && props.teamId === undefined) {
+      throw new Error(
+        'ステータスが在籍中であればチームに所属している必要があります',
+      );
+    }
+
+    if (props.status.value !== 'active' && props.teamId !== undefined) {
+      throw new Error('ステータスが在籍中でなければチームに所属できません');
+    }
+
     return new Participant({
       ...props,
       createdAt: new Date(),
@@ -41,7 +51,7 @@ export class Participant {
       status: this.props.status.value,
       createdAt: this.props.createdAt,
       updatedAt: this.props.updatedAt,
-      teamId: this.props.teamId.value,
+      teamId: this.props.teamId?.value,
     };
   }
 }
