@@ -1,4 +1,5 @@
 import { TeamName } from './team-name';
+import { DomainException } from '../shared/domain-exception';
 
 describe('TeamName', () => {
   describe('build', () => {
@@ -7,15 +8,27 @@ describe('TeamName', () => {
     });
 
     it('異常系 値が3文字を超えた場合、インスタンス生成が行えないこと', () => {
-      expect(() => TeamName.build('1234')).toThrow(
-        'チーム名は3文字以下の数字のみが許可されています。',
-      );
+      try {
+        TeamName.build('1234');
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          'チーム名は3文字以下の数字のみが許可されています。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
 
     it('異常系 値に数字以外の文字が含まれている場合、インスタンス生成が行えないこと', () => {
-      expect(() => TeamName.build('1a!')).toThrow(
-        'チーム名は3文字以下の数字のみが許可されています。',
-      );
+      try {
+        TeamName.build('1a!');
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          'チーム名は3文字以下の数字のみが許可されています。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
   });
 

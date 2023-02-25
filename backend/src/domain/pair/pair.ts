@@ -2,6 +2,7 @@ import { PairId } from './pair-id';
 import { PairName } from './pair-name';
 import { Participant } from '../participant/participant';
 import { TeamId } from '../team/team-id';
+import { DomainException } from '../shared/domain-exception';
 
 interface PairProps {
   id: PairId;
@@ -25,16 +26,18 @@ export class Pair {
       props.participants.length < this.MIN_PARTICIPANT ||
       this.MAX_PARTICIPANT < props.participants.length
     ) {
-      throw new Error(
-        `ペアに所属できる参加者は${this.MIN_PARTICIPANT}~${this.MAX_PARTICIPANT}名です`,
+      throw new DomainException(
+        `ペアに所属できる参加者は${this.MIN_PARTICIPANT}~${this.MAX_PARTICIPANT}名です。`,
+        400,
       );
     }
 
     for (const participant of props.participants) {
       const { status } = participant.getAllProperties();
       if (status !== 'active') {
-        throw new Error(
-          'ステータスが在籍中ではない参加者はペアに所属できません',
+        throw new DomainException(
+          'ステータスが在籍中ではない参加者はペアに所属できません。',
+          400,
         );
       }
     }
@@ -43,8 +46,9 @@ export class Pair {
       return participant.getAllProperties().teamId;
     });
     if (!teamIds.every((teamId) => teamId === teamIds[0])) {
-      throw new Error(
-        'ペアに所属する参加者は、同じチームに所属している必要があります',
+      throw new DomainException(
+        'ペアに所属する参加者は、同じチームに所属している必要があります。',
+        400,
       );
     }
 

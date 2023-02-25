@@ -8,6 +8,7 @@ import { ParticipantEmail } from '../participant/participant-email';
 import { ParticipantStatus } from '../participant/participant-status';
 import { TestParticipantFactory } from '../participant/test-participant-factory';
 import { TeamId } from '../team/team-id';
+import { DomainException } from '../shared/domain-exception';
 
 describe('Pair', () => {
   describe('build', () => {
@@ -38,7 +39,7 @@ describe('Pair', () => {
     });
 
     it('異常系 参加者が2名未満ではインスタンス生成が行えないこと', () => {
-      expect(() =>
+      try {
         Pair.build({
           id: PairId.build(),
           name: PairName.build('2'),
@@ -52,12 +53,18 @@ describe('Pair', () => {
             }),
           ],
           teamId: TeamId.build(),
-        }),
-      ).toThrow('ペアに所属できる参加者は2~3名です');
+        });
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          'ペアに所属できる参加者は2~3名です。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
 
     it('異常系 参加者が4名以上ではインスタンス生成が行えないこと', () => {
-      expect(() =>
+      try {
         Pair.build({
           id: PairId.build(),
           name: PairName.build('2'),
@@ -92,12 +99,18 @@ describe('Pair', () => {
             }),
           ],
           teamId: TeamId.build(),
-        }),
-      ).toThrow('ペアに所属できる参加者は2~3名です');
+        });
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          'ペアに所属できる参加者は2~3名です。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
 
     it('異常系 ステータスが在籍中ではない参加者がいるとインスタンス生成が行えないこと', () => {
-      expect(() =>
+      try {
         Pair.build({
           id: PairId.build(),
           name: PairName.build('2'),
@@ -118,12 +131,18 @@ describe('Pair', () => {
             }),
           ],
           teamId: TeamId.build(),
-        }),
-      ).toThrow('ステータスが在籍中ではない参加者はペアに所属できません');
+        });
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          'ステータスが在籍中ではない参加者はペアに所属できません。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
 
     it('異常系 参加者が異なるチームに所属しているいるとインスタンス生成が行えないこと', () => {
-      expect(() =>
+      try {
         Pair.build({
           id: PairId.build(),
           name: PairName.build('2'),
@@ -144,10 +163,14 @@ describe('Pair', () => {
             }),
           ],
           teamId: TeamId.build(),
-        }),
-      ).toThrow(
-        'ペアに所属する参加者は、同じチームに所属している必要があります',
-      );
+        });
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          'ペアに所属する参加者は、同じチームに所属している必要があります。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
   });
 

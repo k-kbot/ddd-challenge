@@ -1,3 +1,5 @@
+import { DomainException } from '../shared/domain-exception';
+
 export class ParticipantEmail {
   // メールアドレスを表す現実的な正規表現
   // https://qiita.com/sakuro/items/1eaa307609ceaaf51123
@@ -8,7 +10,7 @@ export class ParticipantEmail {
 
   static build(email: string): ParticipantEmail {
     if (!this.REGEX.test(email)) {
-      throw new Error(`不正なメールアドレスです。`);
+      throw new DomainException(`不正なメールアドレスです。`, 400);
     }
 
     return new ParticipantEmail(email);
