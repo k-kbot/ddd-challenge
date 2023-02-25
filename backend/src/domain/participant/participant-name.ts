@@ -1,3 +1,5 @@
+import { DomainException } from '../shared/domain-exception';
+
 export class ParticipantName {
   private static readonly MAX_LENGTH = 20;
 
@@ -5,8 +7,9 @@ export class ParticipantName {
 
   static build(name: string): ParticipantName {
     if (name.length > this.MAX_LENGTH) {
-      throw new Error(
+      throw new DomainException(
         `参加者名は${this.MAX_LENGTH}文字以下が許可されています。`,
+        400,
       );
     }
 

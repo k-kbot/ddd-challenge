@@ -4,6 +4,7 @@ import { ParticipantName } from './participant-name';
 import { ParticipantEmail } from './participant-email';
 import { ParticipantStatus } from './participant-status';
 import { TeamId } from '../team/team-id';
+import { DomainException } from '../shared/domain-exception';
 
 describe('Participant', () => {
   describe('build', () => {
@@ -20,27 +21,39 @@ describe('Participant', () => {
     });
 
     it('異常系 ステータスが在籍中でチームの所属していなければインスタンス生成が行えないこと', () => {
-      expect(() =>
+      try {
         Participant.build({
           id: ParticipantId.build(),
           name: ParticipantName.build('山田太郎'),
           email: ParticipantEmail.build('taro@example.com'),
           status: ParticipantStatus.build('active'),
           teamId: undefined,
-        }),
-      ).toThrow('ステータスが在籍中であればチームに所属している必要があります');
+        });
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          'ステータスが在籍中であればチームに所属している必要があります。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
 
     it('異常系 ステータスが在籍中以外でチームの所属していればインスタンス生成が行えないこと', () => {
-      expect(() =>
+      try {
         Participant.build({
           id: ParticipantId.build(),
           name: ParticipantName.build('山田太郎'),
           email: ParticipantEmail.build('taro@example.com'),
           status: ParticipantStatus.build('inactive'),
           teamId: TeamId.build(),
-        }),
-      ).toThrow('ステータスが在籍中でなければチームに所属できません');
+        });
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          'ステータスが在籍中でなければチームに所属できません。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
   });
 

@@ -1,4 +1,5 @@
 import { ParticipantEmail } from './participant-email';
+import { DomainException } from '../shared/domain-exception';
 
 describe('ParticipantEmail', () => {
   describe('build', () => {
@@ -9,9 +10,15 @@ describe('ParticipantEmail', () => {
     });
 
     it('異常系 不正なメールアドレスの場合、インスタンス生成が行えないこと', () => {
-      expect(() => ParticipantEmail.build('@foo')).toThrow(
-        '不正なメールアドレスです。',
-      );
+      try {
+        ParticipantEmail.build('@foo');
+      } catch (e) {
+        expect(e).toBeInstanceOf(DomainException);
+        expect((e as DomainException).errorMessage).toBe(
+          '不正なメールアドレスです。',
+        );
+        expect((e as DomainException).statusCode).toBe(400);
+      }
     });
   });
 

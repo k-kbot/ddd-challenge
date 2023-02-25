@@ -3,6 +3,7 @@ import { ParticipantName } from './participant-name';
 import { ParticipantEmail } from './participant-email';
 import { ParticipantStatus } from './participant-status';
 import { TeamId } from '../team/team-id';
+import { DomainException } from '../shared/domain-exception';
 
 interface ParticipantProps {
   id: ParticipantId;
@@ -21,13 +22,17 @@ export class Participant {
 
   static build(props: ParticipantBuildProps): Participant {
     if (props.status.value === 'active' && props.teamId === undefined) {
-      throw new Error(
-        'ステータスが在籍中であればチームに所属している必要があります',
+      throw new DomainException(
+        'ステータスが在籍中であればチームに所属している必要があります。',
+        400,
       );
     }
 
     if (props.status.value !== 'active' && props.teamId !== undefined) {
-      throw new Error('ステータスが在籍中でなければチームに所属できません');
+      throw new DomainException(
+        'ステータスが在籍中でなければチームに所属できません。',
+        400,
+      );
     }
 
     return new Participant({

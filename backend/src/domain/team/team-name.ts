@@ -1,3 +1,5 @@
+import { DomainException } from '../shared/domain-exception';
+
 export class TeamName {
   private static readonly MAX_LENGTH = 3;
   private static readonly REGEX = /^\d+$/;
@@ -6,8 +8,9 @@ export class TeamName {
 
   static build(name: string): TeamName {
     if (name.length > this.MAX_LENGTH || !this.REGEX.test(name)) {
-      throw new Error(
+      throw new DomainException(
         `チーム名は${this.MAX_LENGTH}文字以下の数字のみが許可されています。`,
+        400,
       );
     }
 
