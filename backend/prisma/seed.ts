@@ -77,7 +77,18 @@ async function main() {
       update: {},
       create: u,
     });
-    console.log(`Created user with id: ${team.id}`);
+    console.log(`Created team with id: ${team.id}`);
+  }
+  for (let i = 1; i <= 80; i++) {
+    const task = await prisma.task.upsert({
+      where: { id: `${i}` },
+      update: {},
+      create: {
+        id: `${i}`,
+        name: `課題${i}`,
+      },
+    });
+    console.log(`Created task with id: ${task.id}`);
   }
   console.log(`Seeding finished.`);
 }
