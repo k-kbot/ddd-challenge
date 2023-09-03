@@ -1,4 +1,4 @@
-import { TeamDto } from '../../../domain/repository-interface/team-repository';
+import { TeamDto } from '../../../usecase/team/query-service-interface/team-query-service';
 
 export class GetTeamsResponse {
   teams: Team[];
