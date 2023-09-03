@@ -31,25 +31,40 @@ model Pair {
 }
 
 model Participant {
-  id        String   @id @db.VarChar(255)
-  name      String   @db.VarChar(255)
-  email     String   @db.VarChar(255)
+  id        String         @id @db.VarChar(255)
+  name      String         @db.VarChar(255)
+  email     String         @db.VarChar(255)
   status    Int
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  teamId    String   @map("team_id")
-  Team      Team     @relation(fields: [teamId], references: [id])
-  pairId    String   @map("pair_id")
-  Pair      Pair     @relation(fields: [pairId], references: [id])
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+  teamId    String         @map("team_id")
+  Team      Team           @relation(fields: [teamId], references: [id])
+  pairId    String         @map("pair_id")
+  Pair      Pair           @relation(fields: [pairId], references: [id])
+  Tasks     TaskProgress[]
 
   @@map("participants")
 }
 
 model Task {
-  id        String   @id @db.VarChar(255)
-  name      String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id           String         @id @db.VarChar(255)
+  name         String         @db.VarChar(255)
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  Participants TaskProgress[]
 
   @@map("tasks")
+}
+
+model TaskProgress {
+  id            String      @id @db.VarChar(255)
+  status        Int
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  taskId        String      @map("task_id")
+  Task          Task        @relation(fields: [taskId], references: [id])
+  participantId String      @map("participant_id")
+  Participant   Participant @relation(fields: [participantId], references: [id])
+
+  @@map("task_progress")
 }
