@@ -1,9 +1,9 @@
 import { GetParticipantsUsecase } from './get-participants-usecase';
-import { ParticipantRepository } from '../../infra/db/repository/participant/participant-repository';
+import { ParticipantRepository } from '../../infra/db/repository/participant-repository';
 import { PrismaClient } from '@prisma/client';
 
 jest.mock('@prisma/client');
-jest.mock('../../infra/db/repository/participant/participant-repository');
+jest.mock('../../infra/db/repository/participant-repository');
 
 describe('GetParticipantsUsecase', () => {
   let mockRepository: jest.MockedObjectDeep<ParticipantRepository>;

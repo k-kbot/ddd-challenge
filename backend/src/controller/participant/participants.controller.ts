@@ -1,6 +1,6 @@
 import { Get, Controller } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { ParticipantRepository } from '../../infra/db/repository/participant/participant-repository';
+import { ParticipantRepository } from '../../infra/db/repository/participant-repository';
 import { GetParticipantsUsecase } from '../../usecase/participant/get-participants-usecase';
 import { GetParticipantsResponse } from './response/get-participants-response';
 

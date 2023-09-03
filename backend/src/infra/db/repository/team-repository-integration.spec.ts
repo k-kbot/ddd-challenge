@@ -1,8 +1,8 @@
 import { TeamRepository } from './team-repository';
-import { Team } from '../../../../domain/team/team';
-import { TeamId } from '../../../../domain/team/team-id';
-import { TeamName } from '../../../../domain/team/team-name';
-import { prisma } from '../../../../../testUtils/prisma';
+import { Team } from '../../../domain/team/team';
+import { TeamId } from '../../../domain/team/team-id';
+import { TeamName } from '../../../domain/team/team-name';
+import { prisma } from '../../../../testUtils/prisma';
 
 describe('TeamRepository', () => {
   const teamRepository = new TeamRepository(prisma);

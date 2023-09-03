@@ -1,6 +1,6 @@
 import { PairRepository } from './pair-repository';
-import { prisma } from '../../../../../testUtils/prisma';
-import { PairDto } from '../../../../domain/repository-interface/pair-repository';
+import { prisma } from '../../../../testUtils/prisma';
+import { PairDto } from '../../../domain/repository-interface/pair-repository';
 
 describe('PairRepository', () => {
   const pairRepository = new PairRepository(prisma);

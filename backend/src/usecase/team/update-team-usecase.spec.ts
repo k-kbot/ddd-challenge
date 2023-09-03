@@ -1,7 +1,7 @@
 import { UpdateTeamUsecase } from './update-team-usecase';
 import { TeamQueryService } from '../../infra/db/query-service/team-query-service';
 import { PrismaClient } from '@prisma/client';
-import { TeamRepository } from '../../infra/db/repository/team/team-repository';
+import { TeamRepository } from '../../infra/db/repository/team-repository';
 
 jest.mock('@prisma/client');
 jest.mock('../../infra/db/query-service/team-query-service');

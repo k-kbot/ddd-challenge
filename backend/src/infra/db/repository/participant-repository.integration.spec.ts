@@ -1,6 +1,6 @@
 import { ParticipantRepository } from './participant-repository';
-import { prisma } from '../../../../../testUtils/prisma';
-import { ParticipantDto } from '../../../../domain/repository-interface/participant-repository';
+import { prisma } from '../../../../testUtils/prisma';
+import { ParticipantDto } from '../../../domain/repository-interface/participant-repository';
 
 describe('ParticipantRepository', () => {
   const participantRepository = new ParticipantRepository(prisma);
