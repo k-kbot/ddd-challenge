@@ -1,26 +1,26 @@
 import { GetParticipantsUsecase } from './get-participants-usecase';
-import { ParticipantRepository } from '../../infra/db/repository/participant-repository';
+import { ParticipantQueryService } from '../../infra/db/query-service/participant-query-service';
 import { PrismaClient } from '@prisma/client';
 
 jest.mock('@prisma/client');
-jest.mock('../../infra/db/repository/participant-repository');
+jest.mock('../../infra/db/query-service/participant-query-service');
 
 describe('GetParticipantsUsecase', () => {
-  let mockRepository: jest.MockedObjectDeep<ParticipantRepository>;
+  let mockQueryService: jest.MockedObjectDeep<ParticipantQueryService>;
 
   beforeAll(() => {
     const prisma = new PrismaClient();
-    mockRepository = jest.mocked(new ParticipantRepository(prisma));
+    mockQueryService = jest.mocked(new ParticipantQueryService(prisma));
   });
 
   describe('do', () => {
-    it('正常系 ParticipantRepository.findAllを1回コールすること', async () => {
+    it('正常系 ParticipantQueryService.findAllを1回コールすること', async () => {
       // Act
-      const usecase = new GetParticipantsUsecase(mockRepository);
+      const usecase = new GetParticipantsUsecase(mockQueryService);
       await usecase.do();
 
       // Assert
-      expect(mockRepository.findAll).toHaveBeenCalledTimes(1);
+      expect(mockQueryService.findAll).toHaveBeenCalledTimes(1);
     });
   });
 });

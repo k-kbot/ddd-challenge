@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import {
-  IParticipantRepository,
+  IParticipantQueryService,
   ParticipantDto,
-} from '../../../domain/repository-interface/participant-repository';
+} from '../../../usecase/participant/query-service-interface/participant-query-service';
 
-export class ParticipantRepository implements IParticipantRepository {
+export class ParticipantQueryService implements IParticipantQueryService {
   constructor(private prismaClient: PrismaClient) {}
 
   async findAll(): Promise<ParticipantDto[]> {
