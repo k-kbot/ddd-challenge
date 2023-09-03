@@ -1,5 +1,3 @@
-import { Team } from '../team/team';
-
 export class TeamDto {
   public readonly id: string;
   public readonly name: string;
@@ -20,6 +18,8 @@ export class TeamDto {
   }
 }
 
-export interface ITeamRepository {
-  update(team: Team): Promise<boolean>;
+export interface ITeamQueryService {
+  findAll(): Promise<TeamDto[]>;
+  findById(id: string): Promise<TeamDto | undefined>;
+  findByName(name: string): Promise<TeamDto | undefined>;
 }

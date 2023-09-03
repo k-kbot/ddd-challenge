@@ -1,12 +1,12 @@
 import {
-  ITeamRepository,
+  ITeamQueryService,
   TeamDto,
-} from '../../domain/repository-interface/team-repository';
+} from './query-service-interface/team-query-service';
 
 export class GetTeamsUsecase {
-  constructor(private teamRepository: ITeamRepository) {}
+  constructor(private teamQueryService: ITeamQueryService) {}
 
   async do(): Promise<TeamDto[]> {
-    return await this.teamRepository.findAll();
+    return await this.teamQueryService.findAll();
   }
 }

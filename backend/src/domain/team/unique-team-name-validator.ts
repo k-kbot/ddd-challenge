@@ -1,10 +1,10 @@
-import { ITeamRepository } from '../repository-interface/team-repository';
+import { ITeamQueryService } from '../../usecase/team/query-service-interface/team-query-service';
 
 export class UniqueTeamNameValidator {
-  constructor(private teamRepository: ITeamRepository) {}
+  constructor(private teamQueryService: ITeamQueryService) {}
 
   async exists(teamName: string): Promise<boolean> {
-    const teamDto = await this.teamRepository.findByName(teamName);
+    const teamDto = await this.teamQueryService.findByName(teamName);
     return !!teamDto;
   }
 }
