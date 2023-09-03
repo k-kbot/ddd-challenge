@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import {
   IParticipantRepository,
   ParticipantDto,
-} from '../../../../domain/repository-interface/participant-repository';
+} from '../../../domain/repository-interface/participant-repository';
 
 export class ParticipantRepository implements IParticipantRepository {
   constructor(private prismaClient: PrismaClient) {}

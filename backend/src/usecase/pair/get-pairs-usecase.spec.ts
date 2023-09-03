@@ -1,9 +1,9 @@
 import { GetPairsUsecase } from './get-pairs-usecase';
-import { PairRepository } from '../../infra/db/repository/pair/pair-repository';
+import { PairRepository } from '../../infra/db/repository/pair-repository';
 import { PrismaClient } from '@prisma/client';
 
 jest.mock('@prisma/client');
-jest.mock('../../infra/db/repository/pair/pair-repository');
+jest.mock('../../infra/db/repository/pair-repository');
 
 describe('GetPairsUsecase', () => {
   let mockRepository: jest.MockedObjectDeep<PairRepository>;

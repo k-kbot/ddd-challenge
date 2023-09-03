@@ -1,7 +1,7 @@
 import { Get, Controller, Put, Body, Param } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { TeamQueryService } from '../../infra/db/query-service/team-query-service';
-import { TeamRepository } from '../../infra/db/repository/team/team-repository';
+import { TeamRepository } from '../../infra/db/repository/team-repository';
 import { GetTeamsUsecase } from '../../usecase/team/get-teams-usecase';
 import { GetTeamsResponse } from './response/get-teams-response';
 import { UpdateTeamUsecase } from '../../usecase/team/update-team-usecase';

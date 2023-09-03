@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import {
   IPairRepository,
   PairDto,
-} from '../../../../domain/repository-interface/pair-repository';
+} from '../../../domain/repository-interface/pair-repository';
 
 export class PairRepository implements IPairRepository {
   constructor(private prismaClient: PrismaClient) {}
