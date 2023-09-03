@@ -1,4 +1,4 @@
-import { ParticipantDto } from '../../../domain/repository-interface/participant-repository';
+import { ParticipantDto } from '../../../usecase/participant/query-service-interface/participant-query-service';
 
 export class GetParticipantsResponse {
   participants: Participant[];

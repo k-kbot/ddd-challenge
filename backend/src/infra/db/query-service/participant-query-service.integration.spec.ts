@@ -1,9 +1,9 @@
-import { ParticipantRepository } from './participant-repository';
+import { ParticipantQueryService } from './participant-query-service';
 import { prisma } from '../../../../testUtils/prisma';
-import { ParticipantDto } from '../../../domain/repository-interface/participant-repository';
+import { ParticipantDto } from '../../../usecase/participant/query-service-interface/participant-query-service';
 
-describe('ParticipantRepository', () => {
-  const participantRepository = new ParticipantRepository(prisma);
+describe('ParticipantQueryService', () => {
+  const participantQueryService = new ParticipantQueryService(prisma);
 
   afterEach(async () => {
     // https://www.prisma.io/docs/concepts/components/prisma-client/crud#cascading-deletes-deleting-related-records
@@ -62,7 +62,7 @@ describe('ParticipantRepository', () => {
       });
 
       // Act
-      const actual = await participantRepository.findAll();
+      const actual = await participantQueryService.findAll();
 
       // Assert
       expect(actual).toStrictEqual([

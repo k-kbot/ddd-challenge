@@ -1,12 +1,12 @@
 import {
-  IParticipantRepository,
+  IParticipantQueryService,
   ParticipantDto,
-} from '../../domain/repository-interface/participant-repository';
+} from './query-service-interface/participant-query-service';
 
 export class GetParticipantsUsecase {
-  constructor(private participantRepository: IParticipantRepository) {}
+  constructor(private participantQueryService: IParticipantQueryService) {}
 
   async do(): Promise<ParticipantDto[]> {
-    return await this.participantRepository.findAll();
+    return await this.participantQueryService.findAll();
   }
 }

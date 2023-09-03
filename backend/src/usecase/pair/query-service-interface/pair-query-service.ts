@@ -1,4 +1,4 @@
-import { ParticipantDto } from '../../../domain/repository-interface/participant-repository';
+import { ParticipantDto } from '../../participant/query-service-interface/participant-query-service';
 
 export class PairDto {
   public readonly id: string;

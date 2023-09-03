@@ -31,6 +31,6 @@ export class ParticipantDto {
   }
 }
 
-export interface IParticipantRepository {
+export interface IParticipantQueryService {
   findAll(): Promise<ParticipantDto[]>;
 }
