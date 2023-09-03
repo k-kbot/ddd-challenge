@@ -1,12 +1,12 @@
 import {
-  IPairRepository,
+  IPairQueryService,
   PairDto,
-} from '../../domain/repository-interface/pair-repository';
+} from './query-service-interface/pair-query-service';
 
 export class GetPairsUsecase {
-  constructor(private pairRepository: IPairRepository) {}
+  constructor(private pairQueryService: IPairQueryService) {}
 
   async do(): Promise<PairDto[]> {
-    return await this.pairRepository.findAll();
+    return await this.pairQueryService.findAll();
   }
 }

@@ -1,9 +1,9 @@
-import { PairRepository } from './pair-repository';
+import { PairQueryService } from './pair-query-service';
 import { prisma } from '../../../../testUtils/prisma';
-import { PairDto } from '../../../domain/repository-interface/pair-repository';
+import { PairDto } from '../../../usecase/pair/query-service-interface/pair-query-service';
 
-describe('PairRepository', () => {
-  const pairRepository = new PairRepository(prisma);
+describe('PairQueryService', () => {
+  const pairQueryInterface = new PairQueryService(prisma);
 
   afterEach(async () => {
     // https://www.prisma.io/docs/concepts/components/prisma-client/crud#cascading-deletes-deleting-related-records
@@ -105,7 +105,7 @@ describe('PairRepository', () => {
       });
 
       // Act
-      const actual = await pairRepository.findAll();
+      const actual = await pairQueryInterface.findAll();
 
       // Assert
       expect(actual).toStrictEqual([

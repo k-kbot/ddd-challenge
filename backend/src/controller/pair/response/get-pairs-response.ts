@@ -1,4 +1,4 @@
-import { PairDto } from '../../../domain/repository-interface/pair-repository';
+import { PairDto } from '../../../usecase/pair/query-service-interface/pair-query-service';
 
 export class GetPairsResponse {
   pairs: Pair[];

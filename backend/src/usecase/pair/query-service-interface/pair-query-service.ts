@@ -1,4 +1,4 @@
-import { ParticipantDto } from './participant-repository';
+import { ParticipantDto } from '../../../domain/repository-interface/participant-repository';
 
 export class PairDto {
   public readonly id: string;
@@ -26,6 +26,6 @@ export class PairDto {
   }
 }
 
-export interface IPairRepository {
+export interface IPairQueryService {
   findAll(): Promise<PairDto[]>;
 }
